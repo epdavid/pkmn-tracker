@@ -1,0 +1,38 @@
+.PokemonSquare {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 10px;
+}
+
+.PokemonSquare img {
+    background-color: inherit;
+    mix-blend-mode: multiply;
+}
+
+.white {
+    background-color: #ffffff;
+}
+
+.grey {
+    background-color: #9b9db0;
+}
+
+.blue {
+    background-color: #3444e0;
+}
+
+.red {
+    background-color: #e82a43;
+}
+
+.yellow {
+    background-color: #ebe128;
+}
+
+.green {
+    background-color: #1db32c;
+}
