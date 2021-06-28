@@ -11,10 +11,15 @@
 .PokemonSquare img {
     background-color: inherit;
     mix-blend-mode: multiply;
+    border-radius: 4px;
+}
+
+.darkMode .PokemonSquare.white img {
+    mix-blend-mode: normal;
 }
 
 .white {
-    background-color: #ffffff;
+    background-color: transparent;
 }
 
 .grey {

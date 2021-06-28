@@ -1,9 +1,30 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
 .App {
     display: flex;
     flex-direction: column;
 }
+.App.darkMode {
+    background-color: #121212;
+    color: #fff;
+}
 
-.App .SettingsIcon {
-    align-self: flex-end;
+.App.darkMode .MuiIconButton-root {
+    color: #fff;
+}
+
+.App .topBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
     margin-right: 10px;
+    position: sticky;
+}
+
+.App .buttons {
+    margin-left: auto;
 }

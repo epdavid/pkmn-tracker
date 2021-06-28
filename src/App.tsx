@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import pokemon from 'pokemon';
 import { Pokemon, Color } from './components/PokemonSquare'
 import PokemonGrid from './components/PokemonGrid'
-import useDidMountEffect from './utils/useDidMountEffect';
+import useDidMountEffect from './utils/useDidMountEffect'
+import InfoDialog from './components/InfoDialog'
+import Header from './components/Header'
 
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -16,6 +18,9 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import SettingsIcon from '@material-ui/icons/Settings'
+import HelpIcon from '@material-ui/icons/Help'
+
+import clsx from "clsx"
 
 import './App.css'
 
@@ -34,6 +39,24 @@ const generations: Generation[] = [{
   startNum: 1,
   endNum: 151,
   dropdownLabel: "Generation I"
+}, {
+  generation: 2,
+  dirName: 'generation-2',
+  startNum: 1,
+  endNum: 251,
+  dropdownLabel: "Generation II"
+}, {
+  generation: 3,
+  dirName: 'generation-3',
+  startNum: 1,
+  endNum: 386,
+  dropdownLabel: "Generation III"
+}, {
+  generation: 4,
+  dirName: 'generation-4',
+  startNum: 1,
+  endNum: 493,
+  dropdownLabel: "Generation IV"
 }]
 
 const getPkmn = (gen: Generation): Pokemon[] => {
@@ -60,6 +83,9 @@ const App = () => {
   const [showNum, setShowNum] = useState<boolean>(false)
 
   const [settingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false)
+  const [infoDialogOpen, setInfoDialogOpen] = useState<boolean>(false)
+
+  const [darkMode, setDarkMode] = useState<boolean>(false)
 
   useDidMountEffect(() => {
     window.localStorage.setItem('generation', JSON.stringify(gen));
@@ -73,12 +99,20 @@ const App = () => {
   useDidMountEffect(() => {
     window.localStorage.setItem('showNum', JSON.stringify(showNum))
   }, [showNum])
+  useDidMountEffect(() => {
+    window.localStorage.setItem('darkMode', JSON.stringify(darkMode))
+  }, [darkMode])
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? '#121212' : '#fff'
+  }, [darkMode])
 
   useEffect(() => {
     const genLoaded = JSON.parse(window.localStorage.getItem('generation') ?? 'null')
     const pkmnLoaded = JSON.parse(window.localStorage.getItem('pokemon') ?? 'null')
     const showNameLoaded = (window.localStorage.getItem('showName') ?? 'false') === 'true'
     const showNumLoaded = (window.localStorage.getItem('showNum') ?? 'false') === 'true'
+    const darkModeLoaded = (window.localStorage.getItem('darkMode') ?? 'false') === 'true'
 
     if (genLoaded !== null) {
       setGen(genLoaded as Generation);
@@ -86,7 +120,7 @@ const App = () => {
     setPkmn(pkmnLoaded === null ? getPkmn(generations[0]) : pkmnLoaded as Pokemon[])
     setShowName(showNameLoaded)
     setShowNum(showNumLoaded)
-
+    setDarkMode(darkModeLoaded)
   }, [])
 
   const onPkmnColorChange = (color: Color, pok: Pokemon) => {
@@ -117,6 +151,7 @@ const App = () => {
           setPkmn(getPkmn(gen))
         }}
         variant="outlined"
+        helperText="Changing this value will clear existing selections"
       >
         {generations.map((gen) => (
           <MenuItem key={gen.generation} value={gen.generation}>
@@ -143,6 +178,15 @@ const App = () => {
         />
       </FormGroup>
       <FormGroup row>
+        <FormControlLabel
+          control={<Checkbox
+            checked={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+          />}
+          label="Dark mode"
+        />
+      </FormGroup>
+      <FormGroup row>
         <Button
           color="secondary"
           variant="contained"
@@ -158,9 +202,16 @@ const App = () => {
   </Dialog>
 
   return (
-    <div className="App">
+    <div className={clsx("App", darkMode && "darkMode")}>
       {SettingsDialog}
-      <IconButton className="SettingsIcon" onClick={() => setSettingsDialogOpen(true)}><SettingsIcon /></IconButton>
+      <InfoDialog open={infoDialogOpen} onClose={() => setInfoDialogOpen(false)} />
+      <div className="topBar">
+        <Header />
+        <div className="buttons">
+          <IconButton onClick={() => setSettingsDialogOpen(true)}><SettingsIcon /></IconButton>
+          <IconButton onClick={() => setInfoDialogOpen(true)}><HelpIcon /></IconButton>
+        </div>
+      </div>
       <PokemonGrid
         onPkmnColorChange={onPkmnColorChange}
         pokemon={pkmn}
