@@ -6,6 +6,19 @@
     align-items: center;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 10px;
+    -webkit-filter: brightness(100%);
+    filter: brightness(100%);
+
+}
+
+.PokemonSquare:hover {
+    filter: brightness(100%);
+    -webkit-filter: brightness(70%);
+    /* -webkit-transition: all .15s ease;
+    -moz-transition: all .15s ease;
+    -o-transition: all .15s ease;
+    -ms-transition: all .15s ease;
+    transition: all .15s ease; */
 }
 
 .PokemonSquare img {
@@ -14,9 +27,9 @@
     border-radius: 4px;
 }
 
-.darkMode .PokemonSquare.white img {
-    mix-blend-mode: normal;
-}
+    .darkMode .PokemonSquare.white img {
+        mix-blend-mode: normal;
+    }
 
 .white {
     background-color: transparent;

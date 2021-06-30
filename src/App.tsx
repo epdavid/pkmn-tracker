@@ -5,6 +5,7 @@ import PokemonGrid from './components/PokemonGrid'
 import useDidMountEffect from './utils/useDidMountEffect'
 import InfoDialog from './components/InfoDialog'
 import Header from './components/Header'
+import KeyDialog, { Key, emptyKey } from './components/KeyDialog'
 
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -19,6 +20,11 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
+import VpnKeyIcon from '@material-ui/icons/VpnKey'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+
 
 import clsx from "clsx"
 
@@ -57,6 +63,12 @@ const generations: Generation[] = [{
   startNum: 1,
   endNum: 493,
   dropdownLabel: "Generation IV"
+}, {
+  generation: 5,
+  dirName: 'generation-5',
+  startNum: 1,
+  endNum: 649,
+  dropdownLabel: "Generation V"
 }]
 
 const getPkmn = (gen: Generation): Pokemon[] => {
@@ -81,11 +93,20 @@ const App = () => {
   const [pkmn, setPkmn] = useState<Pokemon[]>([]);
   const [showName, setShowName] = useState<boolean>(false)
   const [showNum, setShowNum] = useState<boolean>(false)
+  const [key, setKey] = useState<Key>(emptyKey)
+  const [notes, setNotes] = useState<string>('')
 
   const [settingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false)
   const [infoDialogOpen, setInfoDialogOpen] = useState<boolean>(false)
+  const [keyDialogOpen, setKeyDialogOpen] = useState<boolean>(false)
 
   const [darkMode, setDarkMode] = useState<boolean>(false)
+
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? 'dark' : 'light'
+    }
+  })
 
   useDidMountEffect(() => {
     window.localStorage.setItem('generation', JSON.stringify(gen));
@@ -102,10 +123,17 @@ const App = () => {
   useDidMountEffect(() => {
     window.localStorage.setItem('darkMode', JSON.stringify(darkMode))
   }, [darkMode])
+  useDidMountEffect(() => {
+    window.localStorage.setItem('key', JSON.stringify(key))
+  }, [key])
+  useDidMountEffect(() => {
+    window.localStorage.setItem('notes', notes)
+  }, [notes])
+
 
   useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? '#121212' : '#fff'
-  }, [darkMode])
+    document.body.style.backgroundColor = darkMode ? theme.palette.background.paper : '#fff'
+  }, [darkMode, theme.palette.background.paper])
 
   useEffect(() => {
     const genLoaded = JSON.parse(window.localStorage.getItem('generation') ?? 'null')
@@ -113,6 +141,8 @@ const App = () => {
     const showNameLoaded = (window.localStorage.getItem('showName') ?? 'false') === 'true'
     const showNumLoaded = (window.localStorage.getItem('showNum') ?? 'false') === 'true'
     const darkModeLoaded = (window.localStorage.getItem('darkMode') ?? 'false') === 'true'
+    const keyLoaded = JSON.parse(window.localStorage.getItem('key') ?? 'null')
+    const notesLoaded = window.localStorage.getItem('notes') ?? ''
 
     if (genLoaded !== null) {
       setGen(genLoaded as Generation);
@@ -121,6 +151,8 @@ const App = () => {
     setShowName(showNameLoaded)
     setShowNum(showNumLoaded)
     setDarkMode(darkModeLoaded)
+    setKey(keyLoaded === null ? emptyKey : keyLoaded as Key)
+    setNotes(notesLoaded)
   }, [])
 
   const onPkmnColorChange = (color: Color, pok: Pokemon) => {
@@ -202,23 +234,41 @@ const App = () => {
   </Dialog>
 
   return (
-    <div className={clsx("App", darkMode && "darkMode")}>
+    <ThemeProvider theme={theme}>
+    <Paper className={clsx("App", darkMode && "darkMode")}>
       {SettingsDialog}
       <InfoDialog open={infoDialogOpen} onClose={() => setInfoDialogOpen(false)} />
+      <KeyDialog
+        open={keyDialogOpen}
+        theKey={key}
+        onChange={(k) => {
+          setKey(k);
+        }}
+        onClose={() => setKeyDialogOpen(false)}
+      />
       <div className="topBar">
-        <Header />
+        <Header wartortlePath={pkmn[7].imgPath} darkMode={darkMode} generation={gen.generation} />
         <div className="buttons">
           <IconButton onClick={() => setSettingsDialogOpen(true)}><SettingsIcon /></IconButton>
           <IconButton onClick={() => setInfoDialogOpen(true)}><HelpIcon /></IconButton>
+          <IconButton onClick={() => setKeyDialogOpen(true)}>< VpnKeyIcon /></IconButton>
         </div>
       </div>
+      <Divider />
       <PokemonGrid
         onPkmnColorChange={onPkmnColorChange}
         pokemon={pkmn}
         showName={showName}
         showNum={showNum}
       />
-    </div>
+      <TextField
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+        multiline 
+        label="Notes"
+      />
+    </Paper>
+    </ThemeProvider>
   );
 }
 

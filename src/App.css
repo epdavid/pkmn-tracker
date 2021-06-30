@@ -6,25 +6,22 @@ body {
 .App {
     display: flex;
     flex-direction: column;
+    padding: 8px;
 }
-.App.darkMode {
-    background-color: #121212;
-    color: #fff;
-}
-
-.App.darkMode .MuiIconButton-root {
-    color: #fff;
-}
-
 .App .topBar {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 20px;
     margin-right: 10px;
-    position: sticky;
 }
 
 .App .buttons {
     margin-left: auto;
+}
+
+.Header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

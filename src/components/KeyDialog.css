@@ -1,0 +1,20 @@
+.square {
+    height: 40px;
+    width: 40px;
+    border: 2px dashed black;
+    margin-right: 16px;
+}
+
+.keyDialogContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.keyDialogContainer .MuiFormGroup-row {
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.keyDialogContainer .MuiFormGroup-row .MuiTextField-root {
+    flex: 2;
+}
