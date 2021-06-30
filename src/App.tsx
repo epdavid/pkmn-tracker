@@ -247,7 +247,7 @@ const App = () => {
         onClose={() => setKeyDialogOpen(false)}
       />
       <div className="topBar">
-        <Header wartortlePath={pkmn[7].imgPath} darkMode={darkMode} generation={gen.generation} />
+        <Header wartortlePath={pkmn[7] ? pkmn[7].imgPath : ''} darkMode={darkMode} generation={gen.generation} />
         <div className="buttons">
           <IconButton onClick={() => setSettingsDialogOpen(true)}><SettingsIcon /></IconButton>
           <IconButton onClick={() => setInfoDialogOpen(true)}><HelpIcon /></IconButton>
