@@ -1,4 +1,4 @@
-import { useEffect, useRef, EffectCallback, DependencyList } from 'react';
+import { useEffect, useRef, EffectCallback, DependencyList } from 'react'
 
 //Cool custom hook to only run whenever dependencies change, but *not* on initial mount
 const useDidMountEffect = (func: EffectCallback, deps: DependencyList) => {

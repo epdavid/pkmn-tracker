@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: sticky;
     padding-left: 20px;
     margin-right: 10px;
 }

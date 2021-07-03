@@ -2,3 +2,9 @@
     display:  grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+.PokemonGrid {
+    height: 83vh;
+    width: 100%;
+    position: relative;
+    overflow: scroll;
+}

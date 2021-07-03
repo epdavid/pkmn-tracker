@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import pokemon from 'pokemon';
 import { Pokemon, Color } from './components/PokemonSquare'
 import PokemonGrid from './components/PokemonGrid'
@@ -105,6 +105,9 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       type: darkMode ? 'dark' : 'light'
+    },
+    typography: {
+      fontFamily: "'M PLUS Rounded 1c', sans-serif"
     }
   })
 
@@ -155,14 +158,14 @@ const App = () => {
     setNotes(notesLoaded)
   }, [])
 
-  const onPkmnColorChange = (color: Color, pok: Pokemon) => {
+  const onPkmnColorChange = useCallback((color: Color, pok: Pokemon) => {
     const pkmnCopy = [...pkmn]
     let foundPokemonIndex = pkmn.findIndex((p) => p.imgPath === pok.imgPath);
     if (foundPokemonIndex !== -1) {
       pkmnCopy[foundPokemonIndex].color = color;
       setPkmn(pkmnCopy)
     }
-  }
+  }, [pkmn])
 
   const clearBoard = () => {
     let newPkmn = [...pkmn]
@@ -262,8 +265,8 @@ const App = () => {
         showNum={showNum}
       />
       <TextField
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
+        defaultValue={notes}
+        onBlur={(e) => setNotes(e.target.value)}
         multiline 
         label="Notes"
       />

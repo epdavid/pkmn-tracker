@@ -16,6 +16,12 @@ const InfoDialog: FunctionComponent<{ open: boolean, onClose: () => void }> = ({
                     Credit to <Link href="https://veekun.com/dex/downloads" target="_blank">veekun</Link> for the sprites.
                 </DialogContentText>
                 <DialogContentText>
+                    If you love the app and wanna say thanks, you can <Link href="https://ko-fi.com/rat_love" target="_blank">buy me a coffee</Link>!
+                </DialogContentText>
+                <DialogContentText>
+                    If you have any questions, want to report any issues, have any suggestions for new features, or just wanna say hi, feel free to email me at <Link href="mailto:wartortle.app@gmail.com">wartortle.app@gmail.com</Link>
+                </DialogContentText>
+                <DialogContentText>
                     This app is intended to be a multipurpose tool for keeping track of Pokemon in a grid. For example, if you are playing through a Pokemon game with the intent to catch 'em all, you might want a visual representation of what Pokemon you've seen vs which Pokemon you've caught without having to dig into the Pokedex each time to check. This is especially useful for games randomized with the <Link href="https://pokehacks.dabomstew.com/randomizer/" target="_blank">Universal Pokemon Randomizer</Link> and/or if special rules are placed on the order in which Pokemon can be caught (e.g.: a <Link href="https://www.youtube.com/watch?v=2o7RrE7Ga_U" target="_blank">Pokerap Order Catch 'em All</Link>). Another potential use for this application is a game of <Link href="https://www.youtube.com/watch?v=yF0nP8j8s3E" target="_blank">Pokemon Randomizer Battleship</Link> where two adversaries place 5 "battleships" on the grid (1x length 2, 2x length 3, 1x length 4, 1x length 5, etc.), and the opponents fire missles at the grid by catching Pokemon in their own game.
                 </DialogContentText>
                 <DialogContentText>

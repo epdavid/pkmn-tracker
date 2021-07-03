@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useCallback } from 'react'
 import PokemonSquare, { Pokemon, Color } from './PokemonSquare';
 import './PokemonGrid.css';
 
@@ -26,5 +26,4 @@ const PokemonGrid: FunctionComponent<PokemonGridProps> = (props) => {
         </div>
     );
 }
-
 export default PokemonGrid

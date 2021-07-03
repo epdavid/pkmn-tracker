@@ -38,7 +38,7 @@ export const emptyKey: Key = {
 }
 
 const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose, theKey }) => {
-    const makeOnChange = (color: keyof Key) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const makeOnChange = (color: keyof Key) => (e: React.FocusEvent<HTMLInputElement>) => {
         let clone = {...theKey}
         clone[color] = e.target.value
         onChange(clone)
@@ -58,8 +58,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Transparent"
-                        value={theKey.transparent}
-                        onChange={makeOnChange('transparent')}
+                        defaultValue={theKey.transparent}
+                        onBlur={makeOnChange('transparent')}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -69,8 +69,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Grey"
-                        value={theKey.grey}
-                        onChange={makeOnChange('grey')}
+                        defaultValue={theKey.grey}
+                        onBlur={makeOnChange('grey')}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -80,8 +80,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Blue"
-                        value={theKey.blue}
-                        onChange={makeOnChange('blue')}
+                        defaultValue={theKey.blue}
+                        onBlur={makeOnChange('blue')}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -91,8 +91,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Red"
-                        value={theKey.red}
-                        onChange={makeOnChange('red')}
+                        defaultValue={theKey.red}
+                        onBlur={makeOnChange('red')}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -102,8 +102,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Yellow"
-                        value={theKey.yellow}
-                        onChange={makeOnChange('yellow')}
+                        defaultValue={theKey.yellow}
+                        onBlur={makeOnChange('yellow')}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -113,8 +113,8 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         rowsMax={4}
                         variant="outlined"
                         label="Green"
-                        value={theKey.green}
-                        onChange={makeOnChange('green')}
+                        defaultValue={theKey.green}
+                        onBlur={makeOnChange('green')}
                     />
                 </FormGroup>
                 </div>
