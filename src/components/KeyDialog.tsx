@@ -21,11 +21,21 @@ export interface Key {
     green: string
 }
 
+
+export interface KeyCount {
+    grey: number,
+    blue: number,
+    red: number,
+    yellow: number,
+    green: number
+}
+
 interface KeyDialogProps {
     onChange: (key: Key) => void,
     onClose: () => void,
     open: boolean,
-    theKey: Key
+    theKey: Key,
+    theKeyCount: KeyCount
 }
 
 export const emptyKey: Key = {
@@ -37,7 +47,15 @@ export const emptyKey: Key = {
     green: ''
 }
 
-const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose, theKey }) => {
+export const emptyKeyCount: KeyCount = {
+    grey: 0,
+    red: 0,
+    blue: 0,
+    yellow: 0,
+    green: 0
+}
+
+const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose, theKey, theKeyCount }) => {
     const makeOnChange = (color: keyof Key) => (e: React.FocusEvent<HTMLInputElement>) => {
         let clone = {...theKey}
         clone[color] = e.target.value
@@ -71,6 +89,7 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         label="Grey"
                         defaultValue={theKey.grey}
                         onBlur={makeOnChange('grey')}
+                        helperText={`Count: ${theKeyCount.grey}`}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -82,6 +101,7 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         label="Blue"
                         defaultValue={theKey.blue}
                         onBlur={makeOnChange('blue')}
+                        helperText={`Count: ${theKeyCount.blue}`}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -93,6 +113,7 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         label="Red"
                         defaultValue={theKey.red}
                         onBlur={makeOnChange('red')}
+                        helperText={`Count: ${theKeyCount.red}`}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -104,6 +125,7 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         label="Yellow"
                         defaultValue={theKey.yellow}
                         onBlur={makeOnChange('yellow')}
+                        helperText={`Count: ${theKeyCount.yellow}`}
                     />
                 </FormGroup>
                 <FormGroup row>
@@ -115,6 +137,7 @@ const KeyDialog: FunctionComponent<KeyDialogProps> = ({ open, onChange, onClose,
                         label="Green"
                         defaultValue={theKey.green}
                         onBlur={makeOnChange('green')}
+                        helperText={`Count: ${theKeyCount.green}`}
                     />
                 </FormGroup>
                 </div>

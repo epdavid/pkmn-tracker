@@ -5,7 +5,7 @@ import PokemonGrid from './components/PokemonGrid'
 import useDidMountEffect from './utils/useDidMountEffect'
 import InfoDialog from './components/InfoDialog'
 import Header from './components/Header'
-import KeyDialog, { Key, emptyKey } from './components/KeyDialog'
+import KeyDialog, { Key, emptyKey, KeyCount, emptyKeyCount } from './components/KeyDialog'
 
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -94,6 +94,7 @@ const App = () => {
   const [showName, setShowName] = useState<boolean>(false)
   const [showNum, setShowNum] = useState<boolean>(false)
   const [key, setKey] = useState<Key>(emptyKey)
+  const [keyCount, setKeyCount] = useState<KeyCount>(emptyKeyCount)
   const [notes, setNotes] = useState<string>('')
 
   const [settingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false)
@@ -165,6 +166,16 @@ const App = () => {
       pkmnCopy[foundPokemonIndex].color = color;
       setPkmn(pkmnCopy)
     }
+  }, [pkmn])
+
+  useEffect(() => {
+    let newKeyCount = {...emptyKeyCount};
+    pkmn.forEach((pk) => {
+      if (pk.color !== Color.white) {
+        newKeyCount[pk.color]++;
+      }
+    })
+    setKeyCount(newKeyCount)
   }, [pkmn])
 
   const clearBoard = () => {
@@ -248,6 +259,7 @@ const App = () => {
           setKey(k);
         }}
         onClose={() => setKeyDialogOpen(false)}
+        theKeyCount={keyCount}
       />
       <div className="topBar">
         <Header wartortlePath={pkmn[7] ? pkmn[7].imgPath : ''} darkMode={darkMode} generation={gen.generation} />
